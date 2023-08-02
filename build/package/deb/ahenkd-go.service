@@ -1,0 +1,17 @@
+[Unit]
+Description=Ahenk Agent
+Wants=network-online.target
+After=network.target network-online.target
+
+[Service]
+Type=forking
+User=root
+Group=root
+ExecStart=/usr/bin/ahenkd-go start
+ExecStop=/usr/bin/ahenkd-go stop
+ExecReload=kill -HUP $MAINPID
+PIDFile=/run/ahenkd-go.pid
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

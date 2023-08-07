@@ -7,8 +7,7 @@
 # go 1.20+
 # systemd
 
-# Change directory to main repo (cd ahenk-go)
-# bash scripts/local-install.sh
+# wget -qO- https://git.aliberksandikci.com.tr/liderahenk/ahenk-go/raw/branch/main/scripts/install.sh | bash
 
 ### --> Variable Set
 REPO_NAME="ahenk-go"
@@ -32,10 +31,9 @@ echo -e "PRE-CLENING DONE\n"
 
 
 ### --> Building
-cp -r ../ "$TEMP_DIR"
 cd "$TEMP_DIR" || exit
-git clone "$REPO_LINK"
 echo "$TEMP_DIR"
+git clone "$REPO_LINK"
 cd "$MAIN_DIR" || exit
 
 # cmd/ahenkd-go

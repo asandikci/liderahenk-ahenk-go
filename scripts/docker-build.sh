@@ -4,7 +4,7 @@
 
 
 GIT_HOST="git.aliberksandikci.com.tr"
-GIT_ORG="Liderahenk"
+GIT_ORG="liderahenk"
 GIT_REPO="ahenk-go"
 
 
@@ -45,6 +45,11 @@ git add debian && git commit -a -m 'Initial packaging'
 
 gbp buildpackage
 
+cd ..
 lintian -- *.changes
 
 echo -e "SOLVE LINTIAN ERRORS / WARNINGS\nAFTER THAT, PUSH REPO"
+
+echo "Edit git configs..."
+sleep 3
+git config --global --edit

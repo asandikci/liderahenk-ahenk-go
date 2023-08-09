@@ -43,13 +43,3 @@ head -100 debian/**/*
 # TODO ask user to continue
 
 git add debian && git commit -a -m 'Initial packaging'
-
-
-pwd | awk '
-  function basename(file, a, n) {
-    n = split(file, a, "/")
-    return a[n]
-  }
-  {print FILENAME, basename(FILENAME)}'
-
-

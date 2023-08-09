@@ -4,7 +4,7 @@
 # docker run -it -d --name CONT_NAME --mount type=bind,source=".",target=/ahenk-go/ IMAGE_NAME:VERSION "/bin/bash"
 
 
-ARG CODE_VERSION=latest
+ARG CODE_VERSION=sid
 FROM debian:${CODE_VERSION}
 
 RUN su -c "echo 'deb http://ftp.tr.debian.org/debian sid main' >> /etc/apt/sources.list.d/sid.list"

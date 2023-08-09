@@ -13,16 +13,15 @@ cd /build || exit
 dh-make-golang make -allow_unknown_hoster "$GIT_HOST/$GIT_ORG/$GIT_REPO"
 
 # TODO Add option to disable writing all these files all the time (-s --skip)
-nano itp-ahenk-go.txt
-sendmail -t < itp-ahenk-go.txt
+nano "itp-$GIT_REPO.txt"
+sendmail -t < "itp-$GIT_REPO.txt"
 
-cd ahenk-go || exit
+cd $GIT_REPO || exit
 grep --color=always -r TODO debian
 echo -e "\nThese files needs review. Starting reviewing automatically in 10sec...\n"
 sleep 10
 # TODO Allow users to escape from automatic review and manually do it while in this script
 
-# Edit files that contains TODO keyword until there is none of them
 while [[ $(grep -r TODO debian | wc --lines) -ne 0 ]]
 do
   nano "$(grep -r TODO debian | awk '{sub(/:.*/,"")} NR==1')"
@@ -43,3 +42,9 @@ head -100 debian/**/*
 # TODO ask user to continue
 
 git add debian && git commit -a -m 'Initial packaging'
+
+gbp buildpackage
+
+lintian -- *.changes
+
+echo -e "SOLVE LINTIAN ERRORS / WARNINGS\nAFTER THAT, PUSH REPO"

@@ -1,7 +1,7 @@
 # docker build -t IMAGE_NAME:VERSION .
 
 # after cd ahenk-go
-# docker run -it -d --ulimit nofile=1024:524288 --name CONT_NAME --mount type=bind,source=".",target=/ahenk-go/ IMAGE_NAME:VERSION "/bin/bash"
+# docker run -it -d --name CONT_NAME --mount type=bind,source=".",target=/ahenk-go/ IMAGE_NAME:VERSION "/bin/bash"
 
 
 ARG CODE_VERSION=latest
@@ -16,18 +16,12 @@ RUN apt-get upgrade -y
 RUN apt-get install curl wget tree nano -y
 
 ### INSTALL BUILD DEPENDENCIES ###
-RUN apt-get install pbuilder -y
 RUN apt-get install dh-golang -y
 RUN apt-get install dh-make-golang -y
-RUN apt-get install cowbuilder -y
 RUN apt-get install golang-github-sevlyar-go-daemon-dev -y
 RUN apt-get install golang-golang-x-exp-dev -y
 
 ### CONFIGURATIONS ###
-RUN mkdir /var/cache/pbuilder/base.cow
-# RUN cowbuilder --create
-# FIXME Build Error
-
 # Enable UTF8 Encoding
 RUN echo "LC_ALL=en_US.UTF-8" >> /etc/environment
 RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen

@@ -24,3 +24,5 @@ go.work
 ### Modified
 build/package/bin/
 build/*.deb
+/.pc/
+/_build/

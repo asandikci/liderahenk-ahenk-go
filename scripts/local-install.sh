@@ -11,7 +11,7 @@
 
 ### --> Variable Set
 REPO_NAME="ahenk-go"
-DAEMON_NAME="ahenkd-go"
+DAEMON_NAME="ahenk-go"
 CONF_DIR="/etc/ahenk-go/"
 TEMP_DIR="$(mktemp -d)"
 MAIN_DIR="${TEMP_DIR}/${REPO_NAME}/"

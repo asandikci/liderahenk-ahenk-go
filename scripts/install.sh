@@ -12,7 +12,7 @@
 ### --> Variable Set
 REPO_NAME="ahenk-go"
 REPO_LINK="https://git.aliberksandikci.com.tr/liderahenk/${REPO_NAME}"
-DAEMON_NAME="ahenkd-go"
+DAEMON_NAME="ahenk-go"
 CONF_DIR="/etc/ahenk-go/"
 TEMP_DIR="$(mktemp -d)"
 MAIN_DIR="${TEMP_DIR}/${REPO_NAME}/"

@@ -1,0 +1,27 @@
+Source: ahenk-go
+Maintainer: Aliberk Sandıkçı <asandikci@aliberksandikci.com.tr>
+Uploaders: Aliberk Sandıkçı <asandikci@aliberksandikci.com.tr>
+Section: utils
+Testsuite: autopkgtest-pkg-go
+Priority: optional
+Build-Depends: debhelper-compat (= 13),
+               dh-golang,
+               golang-any,
+               golang-github-sevlyar-go-daemon-dev,
+               golang-golang-x-exp-dev
+Standards-Version: 4.6.0
+Vcs-Browser: https://git.aliberksandikci.com.tr/Liderahenk/go-ahenk
+Vcs-Git:  https://git.aliberksandikci.com.tr/Liderahenk/go-ahenk.git
+Homepage: https://liderahenk.org
+Rules-Requires-Root: no
+XS-Go-Import-Path: git.aliberksandikci.com.tr/Liderahenk/ahenk-go
+
+Package: ahenk-go
+Architecture: any
+Depends: ${misc:Depends},
+         ${shlibs:Depends}
+Built-Using: ${misc:Built-Using}
+Description: The client side of the Lider Ahenk Project
+ Lider Ahenk is an open source project which provides solutions
+ to manage, monitor and audit unlimited number of different
+ systems and users on a network.

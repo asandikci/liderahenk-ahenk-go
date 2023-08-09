@@ -1,0 +1,13 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: ahenk-go
+Upstream-Contact: Aliberk Sandıkçı <asandikci@aliberksandikci.com.tr>
+Source: https://git.aliberksandikci.com.tr/Liderahenk/ahenk-go
+
+Files: *
+Copyright: 2023 Aliberk Sandıkçı <asandikci@aliberksandikci.com.tr>
+License: LGPL-3.0+
+
+Files: debian/*
+Copyright: 2023 Aliberk Sandıkçı <asandikci@aliberksandikci.com.tr>
+License: LGPL-3.0+
+Comment: Debian packaging is licensed under the same terms as upstream

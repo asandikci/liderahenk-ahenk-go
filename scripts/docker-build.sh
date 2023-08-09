@@ -41,6 +41,10 @@ head -100 debian/**/*
 
 # TODO ask user to continue
 
+echo "Edit git configs..."
+sleep 3
+git config --global --edit
+
 git add debian && git commit -a -m 'Initial packaging'
 
 gbp buildpackage
@@ -49,7 +53,3 @@ cd ..
 lintian -- *.changes
 
 echo -e "SOLVE LINTIAN ERRORS / WARNINGS\nAFTER THAT, PUSH REPO"
-
-echo "Edit git configs..."
-sleep 3
-git config --global --edit

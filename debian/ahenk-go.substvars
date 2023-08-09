@@ -1,0 +1,4 @@
+misc:Static-Built-Using=golang-1.20 (= 1.20.7-1), golang-github-sevlyar-go-daemon (= 0.1.5-3), golang-golang-x-exp (= 0.0~git20230522.2e198f4-1), golang-golang-x-sys (= 0.8.0-1)
+misc:Built-Using=golang-1.20 (= 1.20.7-1), golang-github-sevlyar-go-daemon (= 0.1.5-3), golang-golang-x-exp (= 0.0~git20230522.2e198f4-1), golang-golang-x-sys (= 0.8.0-1)
+misc:Depends=
+misc:Pre-Depends=

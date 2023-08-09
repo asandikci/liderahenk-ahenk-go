@@ -1,0 +1,13 @@
+Package: ahenk-go
+Version: 0.0~git20230809.4a3f4f9-1
+Architecture: amd64
+Maintainer: Aliberk Sandıkçı <asandikci@aliberksandikci.com.tr>
+Installed-Size: 1817
+Built-Using: golang-1.20 (= 1.20.7-1), golang-github-sevlyar-go-daemon (= 0.1.5-3), golang-golang-x-exp (= 0.0~git20230522.2e198f4-1), golang-golang-x-sys (= 0.8.0-1)
+Section: utils
+Priority: optional
+Homepage: https://liderahenk.org
+Description: The client side of the Lider Ahenk Project
+ Lider Ahenk is an open source project which provides solutions
+ to manage, monitor and audit unlimited number of different
+ systems and users on a network.

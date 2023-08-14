@@ -55,7 +55,7 @@ echo -e "CONFIGURATIONS DONE\n"
 ### --> Installing 
 if [[ $(ps -p 1 | awk 'FNR == 2 {print $4} ') == "systemd" ]]
 then
-  sudo mv "${MAIN_DIR}build/package/deb/${DAEMON_NAME}.service" /etc/systemd/system/ 
+  sudo mv "${MAIN_DIR}debian/${DAEMON_NAME}.service" /etc/systemd/system/ 
 fi
 sudo systemctl daemon-reload
 sudo systemctl enable "$DAEMON_NAME"

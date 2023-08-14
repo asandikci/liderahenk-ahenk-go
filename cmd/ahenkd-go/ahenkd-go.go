@@ -1,10 +1,10 @@
 package main
 
 import (
+	"ahenk-go/pkg/utils"
 	"log"
 	"os"
 	"syscall"
-	"time"
 
 	"github.com/sevlyar/go-daemon"
 	"golang.org/x/exp/slices"
@@ -36,9 +36,10 @@ func Stop(pid, signal int) {
 
 // Main Function that starts daemon and controls arguments
 func main() {
-	if len(os.Args) == 2 && slices.Contains([]string{"start", "stop", "restart"}, os.Args[1]) {
+	if len(os.Args) == 2 && slices.Contains([]string{"start", "stop", "restart", "nodaemon"}, os.Args[1]) {
 		switch os.Args[1] {
 		case "start":
+			utils.CreatePath(ConfDir)
 			cntxt := &daemon.Context{
 				PidFileName: PidFile,
 				PidFilePerm: 0644,
@@ -66,13 +67,13 @@ func main() {
 			i, _ := daemon.ReadPidFile(PidFile)
 			Restart(i, 15)
 			os.Exit(0)
+		case "nodaemon":
+			log.Print("STARTED AS NO-DAEMON")
 		}
+	} else {
+		log.Print("Please enter a valid option !")
 	}
-
-	for {
-		// NEXT Usage
-		log.Println("Working on it")
-		time.Sleep(2 * time.Second)
-	}
-
+	PluginManager()
+	log.Print("Plugin Manager Started Succesfully")
+	// NEXT Make PluginManager async !
 }

@@ -16,6 +16,7 @@ SORU-3 makefile dpkg-buildpackage kullanmadan önce dosyaları doğru yere yerle
 SORU-4 systemd dosyalarını kurmak için makefile veya dpkg-buildpackage kullanarak yapabileceğim bir şey var mı? Yoksa git.pardus.org.tr > eta-pulse-config deposundaki örnek programdaki gibi `rules` dosyası içinden değişiklik yapmalıyım? Eğer evet ise yeni sürümlerde kaldırıldığı yazıyor, eta-pulse-config'deki gibi compat 9 sürümünü kullanmaya çalışınca dpkg-buildpacke şöyle error veriyor: `dh: warning: Compatibility levels before 10 are deprecated (level 9 in use)` ne yapmamı önerirsin(iz)?
 
 YAPMAK İSTEDİĞİM FARKLI AŞAMALAR:
+<<<<<<< HEAD
 1- debian paketleme için gerekli dosyaları (control,rules...) oluşturma
   - manuel
   - dh-make?
@@ -28,6 +29,21 @@ YAPMAK İSTEDİĞİM FARKLI AŞAMALAR:
   - deb zaten kendi mi yapıyor bunu?
 
 4- koduma eklemeler yaptım ve tekrardan .deb paketi paketlemek istiyorum, güncellemeleri hangi komut ile veya hangi şekilde yapmalıyım?
+=======
+1. debian paketleme için gerekli dosyaları (control,rules...) oluşturma
+  - manuel
+  - dh-make?
+
+2. .deb paketleme. öyle ki oluşan bu deb paketi çalıştırıldığında cmd/ahenk-go içinde buildlenmiş dosyaları /usr/bin/ahenk-go'ya, ahenk-go.service dosyasını /lib/systemd/system altına .... koysun.
+  - dpkg-buildpackage?
+  - gbp buildpackage?
+  - 2.1. Ayrıca source code paketi oluşturma ve bu paketten tekrar .deb oluşturabilme
+
+3. .deb paketi kurma ve paketi sistemden kaldırma işlemleri. 
+  - deb zaten kendi mi yapıyor bunu?
+
+4. koduma eklemeler yaptım ve tekrardan .deb paketi paketlemek istiyorum, güncellemeleri hangi komut ile veya hangi şekilde yapmalıyım?
+>>>>>>> 417461b (Ali Rıza abi müsait olunca yardım edebilir misin😅)
 
 diğer branchların son durumu: 
 - main: en son 1 hafta önce denediğim dosyalar ve scripts/docker-build.sh son hâli (docker üzerinde denediğim build işleme, dh-make-golang ile)

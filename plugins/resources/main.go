@@ -1,9 +1,12 @@
-package resources
+package main
 
 import (
 	"ahenk-go/pkg/osinfo"
+	"fmt"
 	"runtime"
 )
+
+type greeting string
 
 // return instant resource usage information
 func ResourceUsage() map[string]string {
@@ -27,7 +30,7 @@ func ResourceUsage() map[string]string {
 }
 
 // return general Agent information (that changes rarely)
-func AgentInfo() map[string]interface{} {
+func (g greeting) AgentInfo() map[string]interface{} {
 	data := map[string]interface{}{
 		"System": runtime.GOOS, "Release": osinfo.GetKernelInfo()["Release"],
 		// TODO 'agentVersion': self.get_agent_version(),
@@ -67,3 +70,13 @@ func Info() map[string]string {
 	// inf["machine_oriented"] = "false"
 	return inf
 }
+
+func (g greeting) Greet() {
+	fmt.Println("Hello Universe")
+}
+func (g greeting) Myvar() {
+	fmt.Println("I am here")
+}
+
+// this is exported
+var Greeter greeting

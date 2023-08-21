@@ -71,7 +71,7 @@ func main() {
 			log.Print("STARTED AS NO-DAEMON")
 		}
 	} else {
-		log.Print("Please enter a valid option !")
+		panic("Please enter a valid option !")
 	}
 	PluginManager()
 	log.Print("Plugin Manager Started Succesfully")

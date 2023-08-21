@@ -13,13 +13,14 @@ RUN apt-get update
 RUN apt-get upgrade -y
 
 ### INSTALL USEFUL UTILITIES ###
-RUN apt-get install curl wget tree nano -y
+RUN apt-get install curl wget tree nano procps -y 
 
 ### INSTALL BUILD DEPENDENCIES ###
-RUN apt-get install dh-golang -y
+RUN apt-get install dh-golang dh-make -y
 RUN apt-get install dh-make-golang -y
 RUN apt-get install golang-github-sevlyar-go-daemon-dev -y
 RUN apt-get install golang-golang-x-exp-dev -y
+
 
 ### CONFIGURATIONS ###
 # Enable UTF8 Encoding

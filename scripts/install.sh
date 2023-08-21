@@ -1,6 +1,11 @@
 #!/bin/bash
 
 ### Ahenk Agent Local Installation Script
+### IMPORTANT NOTICE !
+# Consider to use makefile for building or .deb file for installing package, 
+# using this scripts is not suggested anymore !
+
+### --------------------- ###
 
 ### --> Prerequisites 
 # git

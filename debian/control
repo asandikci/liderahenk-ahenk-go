@@ -4,7 +4,8 @@ Uploaders: Aliberk Sandıkçı <asandikci@aliberksandikci.com.tr>
 Section: utils
 Testsuite: autopkgtest-pkg-go
 Priority: optional
-Build-Depends: debhelper-compat (= 13),
+Build-Depends: debhelper (>= 13),
+               debhelper-compat (= 10),
                dh-golang,
                golang-any,
                golang-github-sevlyar-go-daemon-dev,

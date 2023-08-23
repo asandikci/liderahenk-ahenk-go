@@ -1,4 +1,4 @@
-module ahenk-go
+module git.aliberksandikci.com.tr/Liderahenk/ahenk-go
 
 go 1.20
 

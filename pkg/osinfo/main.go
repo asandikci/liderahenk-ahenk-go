@@ -1,9 +1,9 @@
 package osinfo
 
 import (
-	"ahenk-go/pkg/utils"
 	"syscall"
 
+	"git.aliberksandikci.com.tr/Liderahenk/ahenk-go/pkg/utils"
 	"github.com/shirou/gopsutil/disk"
 )
 

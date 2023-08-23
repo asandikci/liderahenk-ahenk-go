@@ -1,10 +1,11 @@
 package main
 
 import (
-	"ahenk-go/pkg/utils"
 	"log"
 	"os"
 	"syscall"
+
+	"git.aliberksandikci.com.tr/Liderahenk/ahenk-go/pkg/utils"
 
 	"github.com/sevlyar/go-daemon"
 	"golang.org/x/exp/slices"

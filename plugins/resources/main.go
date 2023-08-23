@@ -1,9 +1,10 @@
 package main
 
 import (
-	"ahenk-go/pkg/osinfo"
 	"fmt"
 	"runtime"
+
+	"git.aliberksandikci.com.tr/Liderahenk/ahenk-go/pkg/osinfo"
 )
 
 type greeting string

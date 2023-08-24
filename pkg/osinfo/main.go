@@ -1,10 +1,11 @@
 package osinfo
 
 import (
-	"ahenk-go/pkg/utils"
 	"syscall"
 
+	"git.aliberksandikci.com.tr/Liderahenk/ahenk-go/pkg/utils"
 	"github.com/shirou/gopsutil/disk"
+	"github.com/shirou/gopsutil/mem"
 )
 
 const KB = uint64(1024)
@@ -35,8 +36,10 @@ func GetDisks() []disk.PartitionStat {
 	return parts
 }
 
-// return disk usage as MiB
-// TODO different function for all disks / a specified disk?
+// return disk usage as GiB
+//
+// TODO different functions for all disks / a specified disk?
+// FIXME Wrong Disk values for docker !!! (probably because counting also virtual mountpoints?)
 func GetDiskUsage() map[string]float64 {
 	var totalSize, freeSize, usedSize uint64
 	for _, part := range GetDisks() {
@@ -50,5 +53,19 @@ func GetDiskUsage() map[string]float64 {
 		"total": utils.Byte2GiB(totalSize),
 		"free":  utils.Byte2GiB(freeSize),
 		"used":  utils.Byte2GiB(usedSize),
+	}
+}
+
+// return memory usage as GiB
+//
+// TODO also implement swap usage
+func GetMemoryUsage() map[string]float64 {
+	v, _ := mem.VirtualMemory()
+	return map[string]float64{
+		"total":     utils.Byte2GiB(v.Total),
+		"free":      utils.Byte2GiB(v.Free),
+		"used":      utils.Byte2GiB(v.Used),
+		"avaliable": utils.Byte2GiB(v.Available),
+		"cached":    utils.Byte2GiB(v.Cached),
 	}
 }

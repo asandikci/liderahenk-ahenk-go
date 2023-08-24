@@ -1,4 +1,4 @@
-module ahenk-go
+module git.aliberksandikci.com.tr/Liderahenk/ahenk-go
 
 go 1.20
 
@@ -10,6 +10,7 @@ require (
 require (
 	github.com/go-ole/go-ole v1.2.6 // indirect
 	github.com/yusufpapurcu/wmi v1.2.3 // indirect
+	golang.org/x/text v0.12.0 // indirect
 )
 
 require (

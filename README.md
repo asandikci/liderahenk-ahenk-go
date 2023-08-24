@@ -1,34 +1,45 @@
 # Ahenk Go
 
-Ahenk Agent for Liderahenk Central Management System - Go Implementation
+**Liderahenk** is an open source project which provides solutions to manage, monitor and audit unlimited number of different systems and users on a network.
 
-You can find binary packages in [Releases](/releases) section or build from source code yourself<!-- See section [Packaging](#packaging)-->.
+Ahenk-go is a Linux agent written in Go which enables Lider to manage & monitor clients remotely.
 
-<!-- ### Packaging  
-Install necessary packages
+## Packaging
+1. Install necessary packages (You dont need this step if you are using docker file)
+```sh
+sudo apt install sudo dpkg-dev debhelper golang-any 
+``` 
+2. Clone the repository and move to main directory
+```sh
+git clone https://git.aliberksandikci.com.tr/Liderahenk/ahenk-go/
+cd ahenk-go/
 ```
-  -
+3. Build program and create binary/source packages
+```sh
+dpkg-buildpackage
 ```
+> Refer to Makefile for more info
 
-TODO https://github.com/Pardus-LiderAhenk/ahenk/#packaging
--->
+### Documentation
+- See comprehensively prepared [documentation](https://git.aliberksandikci.com.tr/Liderahenk/ahenk-docs/)
+- See how to [setup development environment](https://git.aliberksandikci.com.tr/Liderahenk/ahenk-docs/src/branch/main/dev/environment.md)
+<!-- Web Documentation Link Here -->
 
-If you do not prefer to use binary packages you can also use installation scripts <!-- TODO temporary solution, will be removed -->
-Development Dependencies 
-```bash
-  go > 1.20
-  git
-```
+## Other Liderahenk Projects
+- [Pardus-LiderAhenk/ahenk](https://github.com/Pardus-LiderAhenk/ahenk/): Current Python Implementation of Ahenk 
+- [Lider UI](https://github.com/Pardus-LiderAhenk/liderui): Lider Administration User Interface
+- [Lider API](https://github.com/Pardus-LiderAhenk/liderapi): Lider API
+- [Liderahenk-ansible](https://github.com/Pardus-LiderAhenk/liderahenk-ansible): Liderahenk setup with ansible  
+- [Ahenkdesk](https://github.com/Pardus-LiderAhenk/ahenkdesk): Ahenk User Interface
+- See more in our [GitHub Page](https://github.com/Pardus-LiderAhenk)
 
-Install with Script
-```bash
-wget -qO- https://git.aliberksandikci.com.tr/liderahenk/ahenk-go/raw/branch/main/scripts/install.sh | bash
-```
 
-### Useful Links
-| Explanation | Link |
-| ----------- | ---- |
-| Ahenk-go documentation | [Liderahenk/ahenk-docs](https://git.aliberksandikci.com.tr/Liderahenk/ahenk-docs/) |
-| Current Python Implementation of Ahenk | [Pardus-LiderAhenk/ahenk](https://github.com/Pardus-LiderAhenk/ahenk/) |
+## Changelog
+- [ahenk-docs/admin/changelog](https://git.aliberksandikci.com.tr/Liderahenk/ahenk-docs/src/branch/main/admin/changelog.md): changes between releases with easy-to-understand annotations
+- [ahenk-docs/dev/changelog](https://git.aliberksandikci.com.tr/Liderahenk/ahenk-docs/src/branch/main/dev/changelog.md): detailed development changelog, includes all issues, feature implementations, breaking changes, code comments, todo etc. - **long**
+- [debian/changelog](./debian/changelog): changes between debian releases
+<!-- https://doc.liderahenk.org/ahenk/changelog/ -->
 
+## License
+Liderahenk and its sub projects are licensed under the [LGPL v3](./LICENSE).
 

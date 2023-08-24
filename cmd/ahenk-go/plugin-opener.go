@@ -19,11 +19,11 @@ func LoadPlugin(plugName string) interface{} {
 	utils.Check(err)
 
 	// TODO also allow lookup another symbol other than PlugnameConnect
-	symGreeter, err := plug.Lookup(utils.FirstUpperEN(plugName) + "Connect")
+	symPlug, err := plug.Lookup(utils.FirstUpperEN(plugName) + "Connect")
 	utils.Check(err)
 
 	var plugOut interface{}
-	plugOut, ok := symGreeter.(interface{})
+	plugOut, ok := symPlug.(interface{})
 	if !ok {
 		fmt.Println("unexpected type from module symbol")
 		os.Exit(1)

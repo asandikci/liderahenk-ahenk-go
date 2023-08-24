@@ -4,7 +4,6 @@ import (
 	"log"
 	"os"
 	"syscall"
-	"time"
 
 	"git.aliberksandikci.com.tr/Liderahenk/ahenk-go/pkg/utils"
 
@@ -56,10 +55,6 @@ func main() {
 			f := utils.OpenLogFile(LogFile)
 			defer f.Close()
 			log.SetOutput(f)
-			log.Printf("Log test")
-
-			time.Sleep(10 * time.Second)
-			log.Print("Killed")
 		case "tmptest":
 			log.Print("TEMPORARY TEST STARTED, log files are NOT redirecting!")
 		}

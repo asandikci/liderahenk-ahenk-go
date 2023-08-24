@@ -4,19 +4,6 @@
 
 Ahenk-go is a Linux agent written in Go which enables Lider to manage & monitor clients remotely.
 
-### Creating Docker Development Environment (Optional)
-1. Install and Create docker environment, [Quick Start](https://sulincix.github.io/sayfalar/html/docker-kullanimi.html)
-2. Pull docker image
-```sh
-docker pull asandikci/godeb
-```
-> Or alternatively build Dockerfile with `docker build -t godeb:latest` code for lower data usage
-
-3. Create container from image and attach to container, an example:
-```sh
-docker run -it -d --name build1 asandikci/godeb:latest "bin/bash"
-docker attach build1 --detach-keys "ctrl-k"
-```
 ## Packaging
 1. Install necessary packages (You dont need this step if you are using docker file)
 ```sh
@@ -34,8 +21,9 @@ dpkg-buildpackage
 > Refer to Makefile for more info
 
 ### Documentation
-- See [Liderahenk/ahenk-docs](https://git.aliberksandikci.com.tr/Liderahenk/ahenk-docs/) for comprehensively prepared documentation.
-
+- See comprehensively prepared [documentation](https://git.aliberksandikci.com.tr/Liderahenk/ahenk-docs/)
+- See how to [setup development environment](https://git.aliberksandikci.com.tr/Liderahenk/ahenk-docs/src/branch/main/dev/environment.md)
+<!-- Web Documentation Link Here -->
 
 ## Other Liderahenk Projects
 - [Pardus-LiderAhenk/ahenk](https://github.com/Pardus-LiderAhenk/ahenk/): Current Python Implementation of Ahenk 
@@ -47,9 +35,11 @@ dpkg-buildpackage
 
 
 ## Changelog
-See [changelog](./debian/changelog) to learn what have been changed between releases or refer to [Releases](./releases) Tab above
-
+- [ahenk-docs/admin/changelog](https://git.aliberksandikci.com.tr/Liderahenk/ahenk-docs/src/branch/main/admin/changelog.md): changes between releases with easy-to-understand annotations
+- [ahenk-docs/dev/changelog](https://git.aliberksandikci.com.tr/Liderahenk/ahenk-docs/src/branch/main/dev/changelog.md): detailed development changelog, includes all issues, feature implementations, breaking changes, code comments, todo etc. - **long**
+- [debian/changelog](./debian/changelog): changes between debian releases
+<!-- https://doc.liderahenk.org/ahenk/changelog/ -->
 
 ## License
-Lider Ahenk and its sub projects are licensed under the [LGPL v3](./LICENSE).
+Liderahenk and its sub projects are licensed under the [LGPL v3](./LICENSE).
 

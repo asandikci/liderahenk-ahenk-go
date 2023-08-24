@@ -10,10 +10,15 @@ type Resources interface {
 	AgentInfo() map[string]interface{}
 }
 
+// type NewPluginInterface interface {
+// 	PluginMethod() returnType
+// }
+
 // Loads Plugins and runs them.
 // When you create a new plugin create a new interface and call this plugin in this function
 func PluginManager() {
 	var resources Resources = LoadPlugin("resources").(Resources)
+	// var pluginName NewPluginInterface = LoadPlugin("pluginName").(NewPluginInterface)
 	for {
 		logPlugin("AgentInfo", resources.AgentInfo())
 		time.Sleep(30 * time.Second)

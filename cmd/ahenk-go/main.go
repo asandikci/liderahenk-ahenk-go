@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 	"syscall"
+	"time"
 
 	"git.aliberksandikci.com.tr/Liderahenk/ahenk-go/pkg/utils"
 
@@ -13,7 +14,10 @@ import (
 
 const PidFile = "/run/ahenkd-go.pid"
 const ExecutablePath = "/usr/bin/ahenkd-go"
-const ConfDir = "/etc/ahenk-go/"
+const DataDir = "/etc/ahenk-go/"
+const LogFile = DataDir + "ahenk.log"
+const LibDir = "/usr/share/ahenk-go/"
+const PluginDir = LibDir + "/plugins/"
 
 // FIXME there isn't any difference with Stop() function
 // TODO There can be a Start() function in it but start function doesnt work properly right now
@@ -40,13 +44,13 @@ func main() {
 	if len(os.Args) == 2 && slices.Contains([]string{"start", "stop", "restart", "nodaemon"}, os.Args[1]) {
 		switch os.Args[1] {
 		case "start":
-			utils.CreatePath(ConfDir)
+			utils.CreatePath(DataDir)
 			cntxt := &daemon.Context{
 				PidFileName: PidFile,
 				PidFilePerm: 0644,
-				LogFileName: ConfDir + "ahenkd.log",
+				LogFileName: LogFile,
 				LogFilePerm: 0640,
-				WorkDir:     ConfDir,
+				WorkDir:     LibDir,
 				Umask:       027,
 				Args:        []string{ExecutablePath, "start"},
 			}
@@ -70,6 +74,19 @@ func main() {
 			os.Exit(0)
 		case "nodaemon":
 			log.Print("STARTED AS NO-DAEMON")
+
+			f := utils.OpenLogFile(LogFile)
+			defer f.Close()
+			log.SetOutput(f)
+			log.Printf("Log test")
+
+			time.Sleep(10 * time.Second)
+			log.Print("Killed")
+		case "tmptest":
+			log.Print("TEMPORARY TEST")
+
+			time.Sleep(3 * time.Second)
+			log.Print("Killed")
 		}
 	} else {
 		panic("Please enter a valid option !")

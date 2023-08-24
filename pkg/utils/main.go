@@ -47,3 +47,11 @@ func Check(err error) {
 		panic(err)
 	}
 }
+
+func OpenLogFile(path string) *os.File {
+	f, err := os.OpenFile(path, os.O_WRONLY|os.O_APPEND|os.O_CREATE, 0644)
+	if err != nil {
+		panic(err)
+	}
+	return f
+}

@@ -1,15 +1,10 @@
 Source: ahenk-go
 Maintainer: Aliberk Sandıkçı <asandikci@aliberksandikci.com.tr>
-Uploaders: Aliberk Sandıkçı <asandikci@aliberksandikci.com.tr>
 Section: utils
 Testsuite: autopkgtest-pkg-go
 Priority: optional
 Build-Depends: debhelper (>= 13),
                debhelper-compat (= 10),
-               dh-golang,
-               golang-any,
-               golang-github-sevlyar-go-daemon-dev,
-               golang-golang-x-exp-dev
 Standards-Version: 4.6.0
 Vcs-Browser: https://git.aliberksandikci.com.tr/Liderahenk/go-ahenk
 Vcs-Git:  https://git.aliberksandikci.com.tr/Liderahenk/go-ahenk.git

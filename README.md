@@ -5,7 +5,7 @@
 Ahenk-go is a Linux agent written in Go which enables Lider to manage & monitor clients remotely.
 
 ## Packaging
-1. Install necessary packages (You dont need this step if you are using docker file)
+1. Install necessary packages (You dont need this step if you are using docker file [godeb](https://git.aliberksandikci.com.tr/Liderahenk/ahenk-docs/src/branch/main/dev/environment.md#creating-docker-development-environment))
 ```sh
 sudo apt install sudo dpkg-dev debhelper golang-any 
 ``` 
@@ -19,6 +19,10 @@ cd ahenk-go/
 dpkg-buildpackage
 ```
 > Refer to Makefile for more info
+4. *optional*, look for package errors and warnings
+```sh
+lintian
+``` 
 
 ## Documentation & Changelog
 - See comprehensively prepared [documentation](https://git.aliberksandikci.com.tr/Liderahenk/ahenk-docs/)

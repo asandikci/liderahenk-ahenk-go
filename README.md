@@ -20,10 +20,12 @@ dpkg-buildpackage
 ```
 > Refer to Makefile for more info
 
-### Documentation
+## Documentation & Changelog
 - See comprehensively prepared [documentation](https://git.aliberksandikci.com.tr/Liderahenk/ahenk-docs/)
 - See how to [setup development environment](https://git.aliberksandikci.com.tr/Liderahenk/ahenk-docs/src/branch/main/dev/environment.md)
 <!-- Web Documentation Link Here -->
+- See [changelog](https://git.aliberksandikci.com.tr/Liderahenk/ahenk-docs/src/branch/main/admin/changelog.md)
+<!-- Web Changelog Link Here -->
 
 ## Other Liderahenk Projects
 - [Pardus-LiderAhenk/ahenk](https://github.com/Pardus-LiderAhenk/ahenk/): Current Python Implementation of Ahenk 
@@ -32,13 +34,6 @@ dpkg-buildpackage
 - [Liderahenk-ansible](https://github.com/Pardus-LiderAhenk/liderahenk-ansible): Liderahenk setup with ansible  
 - [Ahenkdesk](https://github.com/Pardus-LiderAhenk/ahenkdesk): Ahenk User Interface
 - See more in our [GitHub Page](https://github.com/Pardus-LiderAhenk)
-
-
-## Changelog
-- [ahenk-docs/admin/changelog](https://git.aliberksandikci.com.tr/Liderahenk/ahenk-docs/src/branch/main/admin/changelog.md): changes between releases with easy-to-understand annotations
-- [ahenk-docs/dev/changelog](https://git.aliberksandikci.com.tr/Liderahenk/ahenk-docs/src/branch/main/dev/changelog.md): detailed development changelog, includes all issues, feature implementations, breaking changes, code comments, todo etc. - **long**
-- [debian/changelog](./debian/changelog): changes between debian releases
-<!-- https://doc.liderahenk.org/ahenk/changelog/ -->
 
 ## License
 Liderahenk and its sub projects are licensed under the [LGPL v3](./LICENSE).

@@ -9,7 +9,7 @@ RUN apt-get update
 RUN apt-get upgrade -y
 
 ### INSTALL USEFUL UTILITIES ###
-RUN apt-get install curl wget tree nano procps lintian -y 
+RUN apt-get install git curl wget tree nano procps lintian -y 
 
 ### INSTALL BUILD DEPENDENCIES ###
 RUN apt-get install sudo dpkg-dev debhelper golang-any -y

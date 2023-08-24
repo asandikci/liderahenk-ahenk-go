@@ -3,24 +3,16 @@
 # after cd ahenk-go
 # docker run -it -d --name CONT_NAME --mount type=bind,source=".",target=/ahenk-go/ IMAGE_NAME:VERSION "/bin/bash"
 
-
-ARG CODE_VERSION=sid
-FROM debian:${CODE_VERSION}
-
-RUN su -c "echo 'deb http://ftp.tr.debian.org/debian sid main' >> /etc/apt/sources.list.d/sid.list"
+FROM bitnami/minideb
 
 RUN apt-get update
 RUN apt-get upgrade -y
 
 ### INSTALL USEFUL UTILITIES ###
-RUN apt-get install curl wget tree nano procps -y 
+RUN apt-get install curl wget tree nano procps lintian -y 
 
 ### INSTALL BUILD DEPENDENCIES ###
-RUN apt-get install dh-golang dh-make -y
-RUN apt-get install dh-make-golang -y
-RUN apt-get install golang-github-sevlyar-go-daemon-dev -y
-RUN apt-get install golang-golang-x-exp-dev -y
-
+RUN apt-get install sudo dpkg-dev debhelper golang-any -y
 
 ### CONFIGURATIONS ###
 # Enable UTF8 Encoding

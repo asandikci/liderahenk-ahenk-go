@@ -1,31 +1,32 @@
 package main
 
-import "log"
+import (
+	"fmt"
+	"time"
+)
 
-// type Greeter interface {
-// 	Greet()
-// }
-
-func PluginManager() {
-	// 	LoadPlugin("resources")
-
-	// 	// 4. use the module
-	// 	greeter.Greet()
-
-	// 	greeter.Myvar()
-	// 	// for {
-	// 	// 	logPlugin(greeter.AgentInfo())
-	// 	// 	time.Sleep(30 * time.Second)
-	// 	// }
-	log.Print("plugin manager started succesfully")
+// plugins/resources
+type Resources interface {
+	AgentInfo() map[string]interface{}
 }
 
-// func logPlugin(mp map[string]interface{}) {
-// 	fmt.Printf("\nOs Info:\n")
-// 	for i, v := range mp {
-// 		fmt.Printf("%v: %v\n", i, v)
-// 	}
-// }
+// Loads Plugins and runs them.
+// When you create a new plugin create a new interface and call this plugin in this function
+func PluginManager() {
+	var resources Resources = LoadPlugin("resources").(Resources)
+	for {
+		logPlugin("AgentInfo", resources.AgentInfo())
+		time.Sleep(30 * time.Second)
+	}
+}
+
+// Logs plugin outputs.
+func logPlugin(title string, mp map[string]interface{}) {
+	fmt.Printf("\n----- %v -----\n", title)
+	for i, v := range mp {
+		fmt.Printf("%v: %v\n", i, v)
+	}
+}
 
 // // TODO response to Lider
 // // func createResponse() {

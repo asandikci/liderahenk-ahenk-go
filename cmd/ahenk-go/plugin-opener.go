@@ -1,25 +1,32 @@
 package main
 
-// // Load Plugin with plugin name and function name
-// func LoadPlugin(plugName, funcName string) {
-// 	plug, err := plugin.Open("../../plugins/resources/main.so")
-// 	if err != nil {
-// 		fmt.Println(err)
-// 		os.Exit(1)
-// 	}
+import (
+	"fmt"
+	"os"
+	"plugin"
 
-// 	symGreeter, err := plug.Lookup("Greeter")
-// 	if err != nil {
-// 		fmt.Println(err)
-// 		os.Exit(1)
-// 	}
+	"git.aliberksandikci.com.tr/Liderahenk/ahenk-go/pkg/utils"
+)
 
-// 	var greeter Greeter
-// 	greeter, ok := symGreeter.(Greeter)
-// 	if !ok {
-// 		fmt.Println("unexpected type from module symbol")
-// 		os.Exit(1)
-// 	}
-// }
+// Load Plugin placed in PluginDir, returns empty interface.
+// Do not forget to cast in plugin manager
+//
+// Give Plugin Name as argument and be sure you compiled plugins with `-buildmode=plugin` to PluginDir as `pluginname.so`
+func LoadPlugin(plugName string) interface{} {
 
-// // NEXT move plugin-manager.go main here !
+	// TODO if error caugth try without relative path, this will be good for local testing
+	plug, err := plugin.Open(PluginDir + plugName + ".so")
+	utils.Check(err)
+
+	// TODO also allow lookup another symbol other than PlugnameConnect
+	symGreeter, err := plug.Lookup(utils.FirstUpperEN(plugName) + "Connect")
+	utils.Check(err)
+
+	var plugOut interface{}
+	plugOut, ok := symGreeter.(interface{})
+	if !ok {
+		fmt.Println("unexpected type from module symbol")
+		os.Exit(1)
+	}
+	return plugOut
+}

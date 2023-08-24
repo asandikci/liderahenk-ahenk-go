@@ -1,13 +1,15 @@
 package main
 
 import (
-	"fmt"
 	"runtime"
 
 	"git.aliberksandikci.com.tr/Liderahenk/ahenk-go/pkg/osinfo"
 )
 
-type greeting string
+type plug string
+
+// exported plugin Symbol
+var ResourcesConnect plug
 
 // return instant resource usage information
 func ResourceUsage() map[string]string {
@@ -31,28 +33,33 @@ func ResourceUsage() map[string]string {
 }
 
 // return general Agent information (that changes rarely)
-func (g greeting) AgentInfo() map[string]interface{} {
+func (p plug) AgentInfo() map[string]interface{} {
 	data := map[string]interface{}{
-		"System": runtime.GOOS, "Release": osinfo.GetKernelInfo()["Release"],
+		"System": runtime.GOOS, "Kernel": osinfo.GetKernelInfo()["Release"],
+		"hostname":        osinfo.GetKernelInfo()["Hostname"],
+		"osMachine":       osinfo.GetKernelInfo()["Machine"],
+		"diskTotal":       osinfo.GetDiskUsage()["total"],
+		"diskUsed":        osinfo.GetDiskUsage()["used"],
+		"diskFree":        osinfo.GetDiskUsage()["free"],
+		"diskUsage":       osinfo.GetDiskUsage()["used"] / osinfo.GetDiskUsage()["total"],
+		"memoryTotal":     osinfo.GetMemoryUsage()["total"],
+		"memoryFree":      osinfo.GetMemoryUsage()["free"],
+		"memoryAvaliable": osinfo.GetMemoryUsage()["avaliable"],
+		"memoryUsed":      osinfo.GetMemoryUsage()["used"],
+		"memoryCached":    osinfo.GetMemoryUsage()["cached"],
+		"memoryUsage":     (osinfo.GetMemoryUsage()["used"] + osinfo.GetMemoryUsage()["cached"]) / osinfo.GetMemoryUsage()["total"], //REVIEW just used/total ?
+
+		// TODO is calling all functions one by one slow downs code?
+
 		// TODO 'agentVersion': self.get_agent_version(),
-		"hostname": osinfo.GetKernelInfo()["Hostname"],
 		// TODO 'ipAddresses': str(self.Hardware.Network.ip_addresses()).replace('[', '').replace(']', ''),
-		// "osName":     osinfo.GetKernelInfo()["Sysname"], // TODO is it necessary?
-		// "osNodeName": osinfo.GetKernelInfo()["NodeName"],// TODO is it necessary?
-		// "osVersion":  osinfo.GetKernelInfo()["Version"], // TODO is it necessary?
-		"osMachine": osinfo.GetKernelInfo()["Machine"],
-		// TODO get distrubition name also (pardus,arch,debian,windows10 for example ...)
+		// TODO  get distrubition name also (pardus,arch,debian,windows10 for example ...)
 		// TODO 'macAddresses': str(self.Hardware.Network.mac_addresses()).replace('[', '').replace(']', ''),
 		// TODO 'hardware.systemDefinitions': self.Hardware.system_definitions(),
 		// TODO 'hardware.monitors': self.Hardware.monitors(),
 		// TODO 'hardware.screens': self.Hardware.screens(),
 		// TODO 'hardware.usbDevices': self.Hardware.usb_devices(),
 		// TODO 'hardware.printers': self.Hardware.printers(),
-		"diskTotal": osinfo.GetDiskUsage()["total"],
-		"diskUsed":  osinfo.GetDiskUsage()["used"],
-		"diskFree":  osinfo.GetDiskUsage()["free"],
-		// TODO "diskUsage": osinfo.GetDiskUsage()["Usage"],
-		// TODO 'memory': self.Hardware.Memory.total(),
 		// TODO 'Device': device,
 	}
 	return data
@@ -61,23 +68,9 @@ func (g greeting) AgentInfo() map[string]interface{} {
 func Info() map[string]string {
 	inf := make(map[string]string)
 	inf["name"] = "resources"
-	inf["version"] = "0.0.1"
+	inf["version"] = "0.0.2"
 	inf["support"] = "debian"
 	inf["description"] = "Resource Usage Information and Controls"
 	inf["developer"] = "asandikci@aliberksandikci.com.tr"
-
-	// inf["task"] = "true"
-	// inf["user_oriented"] = "false"
-	// inf["machine_oriented"] = "false"
 	return inf
 }
-
-func (g greeting) Greet() {
-	fmt.Println("Hello Universe")
-}
-func (g greeting) Myvar() {
-	fmt.Println("I am here")
-}
-
-// this is exported
-var Greeter greeting

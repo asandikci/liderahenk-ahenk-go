@@ -19,29 +19,9 @@ const LogFile = DataDir + "ahenk.log"
 const LibDir = "/usr/share/ahenk-go/"
 const PluginDir = LibDir + "/plugins/"
 
-// FIXME there isn't any difference with Stop() function
-// TODO There can be a Start() function in it but start function doesnt work properly right now
-func Restart(pid, signal int) {
-	Stop(pid, signal)
-}
-
-// Stop Ahenkd Daemon with a specific PID (running from second copy)
-// do not forget to use also os.Exit() when using in ExecStop
-func Stop(pid, signal int) {
-	log.Println("Stop Signal Caught")
-
-	// FILLME what you want to do before stopping daemon?
-
-	if err := syscall.Kill(pid, syscall.Signal(signal)); err == nil {
-		log.Printf("Ahenk Daemon with pid number %v Successfully stopped", pid) // TODO Also log to /etc/ahenk-go/ahenkd.log
-	} else {
-		log.Fatal(err)
-	}
-}
-
 // Main Function that starts daemon and controls arguments
 func main() {
-	if len(os.Args) == 2 && slices.Contains([]string{"start", "stop", "restart", "nodaemon"}, os.Args[1]) {
+	if len(os.Args) == 2 && slices.Contains([]string{"start", "stop", "restart", "nodaemon", "tmptest"}, os.Args[1]) {
 		switch os.Args[1] {
 		case "start":
 			utils.CreatePath(DataDir)
@@ -67,11 +47,9 @@ func main() {
 		case "stop":
 			i, _ := daemon.ReadPidFile(PidFile)
 			Stop(i, 15)
-			os.Exit(0)
 		case "restart":
 			i, _ := daemon.ReadPidFile(PidFile)
 			Restart(i, 15)
-			os.Exit(0)
 		case "nodaemon":
 			log.Print("STARTED AS NO-DAEMON")
 
@@ -83,15 +61,36 @@ func main() {
 			time.Sleep(10 * time.Second)
 			log.Print("Killed")
 		case "tmptest":
-			log.Print("TEMPORARY TEST")
-
-			time.Sleep(3 * time.Second)
-			log.Print("Killed")
+			log.Print("TEMPORARY TEST STARTED, log files are NOT redirecting!")
 		}
 	} else {
 		panic("Please enter a valid option !")
 	}
 	PluginManager()
-	log.Print("Plugin Manager Started Succesfully")
 	// NEXT Make PluginManager async !
+}
+
+// FIXME there isn't any difference with Stop() function
+// TODO There can be a Start() function in it but start function doesnt work properly right now
+// Restart ahenk daemon with a specific PID (running from second copy)
+func Restart(pid, signal int) {
+	Stop(pid, signal)
+}
+
+// Stop ahenk daemon with a specific PID (running from second copy)
+func Stop(pid, signal int) {
+	log.Println("Stop Signal Caught")
+
+	// FILLME what you want to do before stopping daemon?
+
+	if err := syscall.Kill(pid, syscall.Signal(signal)); err == nil {
+		log.Printf("Ahenk Daemon with pid number %v Successfully stopped", pid)
+		f := utils.OpenLogFile(LogFile)
+		defer f.Close()
+		log.SetOutput(f)
+		log.Printf("Ahenk Daemon with pid number %v Successfully stopped", pid)
+	} else {
+		log.Fatal(err)
+	}
+	os.Exit(0)
 }

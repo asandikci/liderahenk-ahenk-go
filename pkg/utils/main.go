@@ -3,6 +3,9 @@ package utils
 import (
 	"log"
 	"os"
+
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
 )
 
 func Byte2String(arr []int8) string {
@@ -55,3 +58,8 @@ func OpenLogFile(path string) *os.File {
 	}
 	return f
 }
+
+// Makes first character uppercase of given English string
+func FirstUpperEN(str string) string {
+	return cases.Title(language.English).String(str)
+} // TODO cases.NoLower vs cases.Compact !

@@ -14,8 +14,8 @@ var ResourcesConnect plug
 // return instant resource usage information
 func ResourceUsage() map[string]string {
 	data := map[string]string{
-
-		// {'System': self.Os.name(), 'Release': self.Os.kernel_release(),
+		"System": runtime.GOOS, "Release": osinfo.GetKernelInfo()["Release"],
+		// TODO "Version":
 		// 	'Version': self.Os.distribution_version(), 'Machine': self.Os.architecture(),
 		// 	'CPU Physical Core Count': self.Hardware.Cpu.physical_core_count(),
 		// 	'Total Memory': self.Hardware.Memory.total(),
@@ -35,7 +35,7 @@ func ResourceUsage() map[string]string {
 // return general Agent information (that changes rarely)
 func (p plug) AgentInfo() map[string]interface{} {
 	data := map[string]interface{}{
-		"System": runtime.GOOS, "Kernel": osinfo.GetKernelInfo()["Release"],
+		"System": runtime.GOOS, "Release": osinfo.GetKernelInfo()["Release"],
 		"hostname":        osinfo.GetKernelInfo()["Hostname"],
 		"osMachine":       osinfo.GetKernelInfo()["Machine"],
 		"diskTotal":       osinfo.GetDiskUsage()["total"],

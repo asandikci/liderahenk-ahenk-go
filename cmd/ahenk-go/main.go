@@ -11,8 +11,8 @@ import (
 	"golang.org/x/exp/slices"
 )
 
-const PidFile = "/run/ahenkd-go.pid"
-const ExecutablePath = "/usr/bin/ahenkd-go"
+const PidFile = "/run/ahenk-go.pid"
+const ExecutablePath = "/usr/bin/ahenk-go"
 const DataDir = "/etc/ahenk-go/"
 const LogFile = DataDir + "ahenk.log"
 const LibDir = "/usr/share/ahenk-go/"

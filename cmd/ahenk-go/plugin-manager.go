@@ -39,7 +39,7 @@ func PluginManager() {
 		// FILLME Running/Logout a plugin template
 		// go logPlugin("InfoAboutFunction", pluginName.Function() )
 
-		time.Sleep(31 * time.Second)
+		time.Sleep(30 * time.Second)
 	}
 }
 

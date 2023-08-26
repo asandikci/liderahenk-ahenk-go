@@ -8,11 +8,11 @@ import (
 	"git.aliberksandikci.com.tr/Liderahenk/ahenk-go/pkg/utils"
 )
 
-// Load Plugin placed in PluginDir, returns empty interface.
+// Load Plugin placed in PluginDir, returns empty interface with channel
 // Do not forget to cast in plugin manager
 //
 // Give Plugin Name as argument and be sure you compiled plugins with `-buildmode=plugin` to PluginDir as `pluginname.so`
-func LoadPlugin(plugName string) interface{} {
+func LoadPlugin(plugName string, chn chan interface{}) {
 
 	// TODO if error caugth try without relative path, this will be good for local testing
 	plug, err := plugin.Open(PluginDir + plugName + ".so")
@@ -28,5 +28,10 @@ func LoadPlugin(plugName string) interface{} {
 		fmt.Println("unexpected type from module symbol")
 		os.Exit(1)
 	}
-	return plugOut
+	chn <- plugOut
 }
+
+// NEXT implement unload function
+// func UnloadPlugin(plugName string) interface{} {
+
+// }

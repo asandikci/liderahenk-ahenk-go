@@ -3,6 +3,9 @@
 # after cd ahenk-go
 # docker run -it -d --name CONT_NAME --mount type=bind,source=".",target=/ahenk-go/ IMAGE_NAME:VERSION "/bin/bash"
 
+# THIS IS NOT A DOCKERFILE FOR RUNNING AHENK-GO, THIS DOCKERFILE IS JUST FOR SETTING UP DEVELOPMENT ENVIRONMENT
+# TODO UPDATE DOCKERFILE TO PROVIDE A RUNNING AHENK-GO DOCKER ENVIRONMENT 
+ 
 FROM bitnami/minideb
 
 RUN apt-get update

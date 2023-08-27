@@ -26,8 +26,7 @@ lintian
 
 ## Documentation & Changelog
 - See comprehensively prepared [documentation](https://git.aliberksandikci.com.tr/Liderahenk/ahenk-docs/)
-- See how to [setup development environment](https://git.aliberksandikci.com.tr/Liderahenk/ahenk-docs/src/branch/main/dev/environment.md)
-<!-- Web Documentation Link Here -->
+- See how to [setup development environment](https://git.aliberksandikci.com.tr/Liderahenk/ahenk-docs/src/branch/main/dev/environment.md)<!-- Web Documentation Link Here -->
 - See [changelog](https://git.aliberksandikci.com.tr/Liderahenk/ahenk-docs/src/branch/main/admin/changelog.md)
 <!-- Web Changelog Link Here -->
 

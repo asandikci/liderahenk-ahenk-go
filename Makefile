@@ -45,6 +45,7 @@ install:
 	@sudo mkdir -p "${DESTDIR}/${PLUGIN_DIR}"
 
 	sudo go build -buildmode=plugin -o ${DESTDIR}/${PLUGIN_DIR}/resources.so ./plugins/resources
+	sudo go build -buildmode=plugin -o ${DESTDIR}/${PLUGIN_DIR}/tmptest.so ./plugins/tmptest
 	@sudo mkdir -p "${DESTDIR}/${DATA_DIR}"
 
 uninstall:

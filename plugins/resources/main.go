@@ -65,7 +65,7 @@ func (p plug) AgentInfo() map[string]interface{} {
 	return data
 }
 
-func Info() map[string]string {
+func (p plug) Info() map[string]string {
 	inf := make(map[string]string)
 	inf["name"] = "resources"
 	inf["version"] = "0.0.2"

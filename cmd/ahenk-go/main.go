@@ -55,8 +55,11 @@ func main() {
 			f := utils.OpenLogFile(LogFile)
 			defer f.Close()
 			log.SetOutput(f)
+			// TODO Also pipe fmt.Print* commands
+
 		case "tmptest":
 			log.Print("TEMPORARY TEST STARTED, log files are NOT redirecting!")
+			PluginManager("tmptest")
 		}
 	} else {
 		panic("Please enter a valid option !")

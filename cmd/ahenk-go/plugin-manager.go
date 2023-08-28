@@ -1,32 +1,49 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"time"
 )
+
+// General Functions/Methods that each plugin has
+type PlugGeneral interface {
+	Info() map[string]string
+}
 
 // plugins/resources
 type Resources interface {
 	AgentInfo() map[string]interface{}
 }
 
-// FILLME creating new plugin interface template
+// plugins/resources
+type TmpTest interface {
+	TmpTest()
+}
+
+// FILLME creating new plugin interface, template
 // type NewPluginInterface interface {
 // 	PluginMethod() returnType
 // }
 
 // Loads Plugins and runs them concurrently.
 // When you create a new plugin create a new interface and call this plugin in this function
-func PluginManager() {
+func PluginManager(params ...string) {
 	chanPlug := make(chan interface{})
 
 	go LoadPlugin("resources", chanPlug)
 	res, ok := <-chanPlug
 	var resources Resources = res.(Resources)
-	checkPlugin(res, ok)
+	checkPlugin(resources, ok)
 
-	// FILLME Loading new plugin template
+	if len(params) > 0 && params[0] == "tmptest" {
+		go LoadPlugin("tmptest", chanPlug)
+		res, ok := <-chanPlug
+		var tmptest TmpTest = res.(TmpTest)
+		checkPlugin(res, ok)
+		tmptest.TmpTest()
+	}
+
+	// FILLME Loading new plugin, template
 	// go LoadPlugin("pluginName", chanPlug)
 	// res, ok = <-chanPlug
 	// var pluginName NewPluginInterface = res.(NewPluginInterface)
@@ -36,7 +53,7 @@ func PluginManager() {
 	for {
 		go logPlugin("AgentInfo", resources.AgentInfo())
 
-		// FILLME Running/Logout a plugin template
+		// FILLME Running/Log out a plugin, template
 		// go logPlugin("InfoAboutFunction", pluginName.Function() )
 
 		time.Sleep(30 * time.Second)
@@ -45,9 +62,9 @@ func PluginManager() {
 
 // Logs plugin outputs.
 func logPlugin(title string, mp map[string]interface{}) {
-	fmt.Printf("\n----- %v -----\n", title)
+	log.Printf("\n----- %v -----\n", title)
 	for i, v := range mp {
-		fmt.Printf("%v: %v\n", i, v)
+		log.Printf("%v: %v\n", i, v)
 	}
 }
 
@@ -57,7 +74,8 @@ func checkPlugin(plugVal interface{}, status bool) {
 		if plugVal == nil {
 			log.Fatal("Plugin loaded but there is no value!")
 		} else {
-			log.Println("Plugin loaded and ready to use")
+			plugInfo := plugVal.(PlugGeneral).Info()
+			log.Printf("Plugin \"%v\" loaded and ready to use, version \"%v\" ", plugInfo["name"], plugInfo["version"])
 		}
 	} else {
 		if plugVal == nil {

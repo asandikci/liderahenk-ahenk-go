@@ -1,9 +1,8 @@
 package main
 
 import (
-	"log"
-
-	"github.com/zcalusic/sysinfo"
+	"fmt"
+	"time"
 )
 
 type plug string
@@ -12,11 +11,18 @@ type plug string
 var TmptestConnect plug
 
 func (p plug) TmpTest() {
-	var si sysinfo.SysInfo
+	fmt.Println()
+	fmt.Println("----- Entered Test Area -----")
+	fmt.Println()
+	fmt.Println()
 
-	si.GetSysInfo()
+	// THIS FILE WON'T UPDATE ANYMORE (because of .gitignore)
 
-	log.Println(si)
+	fmt.Println()
+	fmt.Println()
+	fmt.Println("----- End of Test Area -----")
+	fmt.Println()
+	time.Sleep(5 * time.Second)
 }
 
 func (p plug) Info() map[string]string {

@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"os"
+	"os/user"
 	"syscall"
 
 	"git.aliberksandikci.com.tr/Liderahenk/ahenk-go/pkg/utils"
@@ -64,6 +65,15 @@ func main() {
 	} else {
 		panic("Please enter a valid option !")
 	}
+
+	current, err := user.Current()
+	if err != nil {
+		log.Fatal(err)
+	}
+	if current.Uid != "0" {
+		log.Fatal("Ahenk-go requires superuser privilege")
+	}
+
 	PluginManager()
 	// NEXT Make PluginManager async !
 }

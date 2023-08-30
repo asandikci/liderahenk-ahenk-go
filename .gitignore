@@ -20,3 +20,6 @@
 
 # Go workspace file
 go.work
+
+# Go temporary test files
+**/plugins/tmptest/**

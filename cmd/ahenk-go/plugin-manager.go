@@ -10,7 +10,7 @@ import (
 
 // General Functions/Methods that each plugin has
 type PlugGeneral interface {
-	Info() map[string]string
+	Info() map[string]interface{}
 }
 
 // plugins/resources

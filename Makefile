@@ -48,5 +48,13 @@ install:
 	sudo go build -buildmode=plugin -o ${DESTDIR}/${PLUGIN_DIR}/tmptest.so ./plugins/tmptest
 	@sudo mkdir -p "${DESTDIR}/${DATA_DIR}"
 
+windows_install:
+	sudo env GOOS=windows GOARCH=amd64 go build -o ${DESTDIR}/usr/bin/${REPO_NAME} ./cmd/ahenk-go/
+	@sudo mkdir -p "${DESTDIR}/${LIB_DIR}"
+	@sudo mkdir -p "${DESTDIR}/${PLUGIN_DIR}"
+
+	sudo GOOS=windows GOARCH=amd64 go build -buildmode=plugin -o ${DESTDIR}/${PLUGIN_DIR}/resources.so ./plugins/resources
+	sudo GOOS=windows GOARCH=amd64 go build -buildmode=plugin -o ${DESTDIR}/${PLUGIN_DIR}/tmptest.so ./plugins/tmptest
+	@sudo mkdir -p "${DESTDIR}/${DATA_DIR}"
 uninstall:
 	@sudo rm -rf ${DESTDIR}/usr/bin/${REPO_NAME}

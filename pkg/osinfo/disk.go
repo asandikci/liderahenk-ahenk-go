@@ -12,10 +12,10 @@ type Disk struct {
 	Free    float64 `json:"free,omitempty"`    // Free Disk size in GiB
 }
 
-func (h *Hardware) getDiskInfo() {
+func (h *System) getDiskInfo() {
 
 	for _, v := range GetDisks() {
-		h.Disk.Devices += v.Device
+		h.Disk.Devices += v.Device + ", "
 	}
 	h.Disk.Total = GetDiskUsage()["spaceTotal"]
 	h.Disk.Used = GetDiskUsage()["usedTotal"]
@@ -51,3 +51,5 @@ func GetDiskUsage() map[string]float64 {
 		"usedTotal":  utils.Byte2GiB(usedSize),
 	}
 }
+
+// REVIEW Windows compatibility and separate files

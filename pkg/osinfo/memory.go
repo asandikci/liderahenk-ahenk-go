@@ -15,7 +15,7 @@ type Memory struct {
 	Used  float64 `json:"used,omitempty"`  // Used RAM size in GiB
 }
 
-func (h *Hardware) getMemoryInfo() {
+func (h *System) getMemoryInfo() { // TODO also implement swap usage
 	memInfo, err := mem.VirtualMemory()
 	utils.Check(err)
 	h.Memory.Used = utils.Byte2GiB(memInfo.Used)
@@ -29,3 +29,5 @@ func (h *Hardware) getMemoryInfo() {
 		h.Memory.Speed = si.Memory.Speed
 	}
 }
+
+// REVIEW Windows compatibility and separate files

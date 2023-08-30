@@ -18,7 +18,7 @@ type CPU struct {
 	Threads uint   `json:"threads,omitempty"` // number of logical (HT) CPU cores
 }
 
-func (h *Hardware) getCPUInfo() {
+func (h *System) getCPUInfo() {
 	if runtime.GOOS == "linux" {
 		var si sysinfo.SysInfo
 		si.GetSysInfo()
@@ -39,3 +39,5 @@ func (h *Hardware) getCPUInfo() {
 
 	}
 }
+
+// REVIEW Windows compatibility and separate files

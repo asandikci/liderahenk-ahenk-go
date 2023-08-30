@@ -24,13 +24,3 @@ func (p plug) TmpTest() {
 	fmt.Println()
 	time.Sleep(5 * time.Second)
 }
-
-func (p plug) Info() map[string]string {
-	inf := make(map[string]string)
-	inf["name"] = "tmptest"
-	inf["version"] = "0.0.1"
-	inf["support"] = "debian"
-	inf["description"] = "Temporary testing"
-	inf["developer"] = "asandikci@aliberksandikci.com.tr"
-	return inf
-}

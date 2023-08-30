@@ -24,6 +24,10 @@ func Byte2GiB(b uint64) float64 {
 	return float64(float64(b) / (1024 * 1024 * 1024))
 }
 
+func MB2GiB(b uint64) float64 {
+	return float64(float64(b*1000*1000) / (1024 * 1024 * 1024))
+}
+
 func CheckPath(path string) (bool, error) {
 	_, err := os.Stat(path)
 	if err == nil {

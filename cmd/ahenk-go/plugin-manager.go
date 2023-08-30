@@ -1,8 +1,11 @@
 package main
 
 import (
+	"encoding/json"
 	"log"
 	"time"
+
+	"git.aliberksandikci.com.tr/Liderahenk/ahenk-go/pkg/utils"
 )
 
 // General Functions/Methods that each plugin has
@@ -13,6 +16,7 @@ type PlugGeneral interface {
 // plugins/resources
 type Resources interface {
 	AgentInfo() map[string]interface{}
+	ResourceUsage() map[string]interface{}
 }
 
 // plugins/resources
@@ -50,21 +54,28 @@ func PluginManager(params ...string) {
 	// checkPlugin(res, ok)
 
 	// Run plugins concurrently and log out
+	go logPlugin("AgentInfo", resources.AgentInfo(), true)
 	for {
-		go logPlugin("AgentInfo", resources.AgentInfo())
+		go logPlugin("ResourceUsage", resources.ResourceUsage(), true)
 
 		// FILLME Running/Log out a plugin, template
-		// go logPlugin("InfoAboutFunction", pluginName.Function() )
+		// go logPlugin("InfoAboutFunction", pluginName.Function(), true)
 
 		time.Sleep(30 * time.Second)
 	}
 }
 
 // Logs plugin outputs.
-func logPlugin(title string, mp map[string]interface{}) {
+func logPlugin(title string, mp map[string]interface{}, toJson bool) {
 	log.Printf("\n----- %v -----\n", title)
-	for i, v := range mp {
-		log.Printf("%v: %v\n", i, v)
+	if toJson {
+		data, err := json.MarshalIndent(&mp, "", " ")
+		utils.Check(err)
+		log.Println(string(data))
+	} else {
+		for i, v := range mp {
+			log.Printf("%v: %v\n", i, v)
+		}
 	}
 }
 

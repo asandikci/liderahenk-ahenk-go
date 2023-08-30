@@ -12,56 +12,72 @@ type plug string
 var ResourcesConnect plug
 
 // return instant resource usage information
-func ResourceUsage() map[string]string {
-	data := map[string]string{
-		"System": runtime.GOOS, "Release": osinfo.GetKernelInfo()["Release"],
-		// TODO "Version":
-		// 	'Version': self.Os.distribution_version(), 'Machine': self.Os.architecture(),
-		// 	'CPU Physical Core Count': self.Hardware.Cpu.physical_core_count(),
-		// 	'Total Memory': self.Hardware.Memory.total(),
-		// 	'Usage': self.Hardware.Memory.used(),
-		// 	'Total Disc': self.Hardware.Disk.total(),
-		// 	'Usage Disc': self.Hardware.Disk.used(),
-		// 	'Processor': self.Hardware.Cpu.brand(),
-		// 	'Device': device,
-		// 	'CPU Logical Core Count': self.Hardware.Cpu.logical_core_count(),
-		// 	'CPU Actual Hz': self.Hardware.Cpu.hz_actual(),
-		// 	'CPU Advertised Hz': self.Hardware.Cpu.hz_advertised()
-		// 	}
+func (p plug) ResourceUsage() map[string]interface{} {
+	var hardware osinfo.Hardware
+	hardware.GetHardwareInfo()
+
+	data := map[string]interface{}{
+		// General System Information
+		"System":  runtime.GOOS,
+		"Release": osinfo.GetLinuxInfo()["Kernel"]["Release"], //needs REVIEW for windows
+		"Version": osinfo.GetLinuxInfo()["OS"]["Version"],     //needs REVIEW for windows
+		"Machine": osinfo.GetLinuxInfo()["OS"]["Arch"],        //needs REVIEW for windows
+
+		// CPU Information
+		"CPU Physical Core Count": hardware.CPU.Cores,
+		// "CPU Logical Core Count":  hardware.CPU.Logical_core_count, // TODO
+		// "CPU Actual Hz":           hardware.CPU.ActualHz, // TODO
+		// "CPU Advertised Hz":       hardware.CPU.Hz_advertised, // TODO
+		// "Processor":               hardware.CPU.Brand, // TODO
+
+		// Memory Information
+		"Total Memory": hardware.Memory.Total,
+		"Usage":        hardware.Memory.Used,
+
+		// Disk Information
+		"Total Disk": hardware.Disk.Total,
+		"Usage Disk": hardware.Disk.Used,
+		"Device":     hardware.Disk.Devices,
 	}
+
+	// TODO see https://github.com/Pardus-LiderAhenk/ahenk/blob/master/src/plugins/resource-usage/resource_info_fetcher.py
 	return data
 }
 
-// return general Agent information (that changes rarely)
+// return general Agent system information
+//
+// these values changes rarely, see ResourceUsage() function for instant resource usage information
 func (p plug) AgentInfo() map[string]interface{} {
+	var hardware osinfo.Hardware
+	hardware.GetHardwareInfo()
+
+	// Common data
 	data := map[string]interface{}{
-		"System": runtime.GOOS, "Release": osinfo.GetKernelInfo()["Release"],
-		"hostname":        osinfo.GetKernelInfo()["Hostname"],
-		"osMachine":       osinfo.GetKernelInfo()["Machine"],
-		"diskTotal":       osinfo.GetDiskUsage()["total"],
-		"diskUsed":        osinfo.GetDiskUsage()["used"],
-		"diskFree":        osinfo.GetDiskUsage()["free"],
-		"diskUsage":       osinfo.GetDiskUsage()["used"] / osinfo.GetDiskUsage()["total"],
-		"memoryTotal":     osinfo.GetMemoryUsage()["total"],
-		"memoryFree":      osinfo.GetMemoryUsage()["free"],
-		"memoryAvaliable": osinfo.GetMemoryUsage()["avaliable"],
-		"memoryUsed":      osinfo.GetMemoryUsage()["used"],
-		"memoryCached":    osinfo.GetMemoryUsage()["cached"],
-		"memoryUsage":     (osinfo.GetMemoryUsage()["used"] + osinfo.GetMemoryUsage()["cached"]) / osinfo.GetMemoryUsage()["total"], //REVIEW just used/total ?
-
-		// TODO is calling all functions one by one slow downs code?
-
-		// TODO 'agentVersion': self.get_agent_version(),
-		// TODO 'ipAddresses': str(self.Hardware.Network.ip_addresses()).replace('[', '').replace(']', ''),
-		// TODO  get distrubition name also (pardus,arch,debian,windows10 for example ...)
-		// TODO 'macAddresses': str(self.Hardware.Network.mac_addresses()).replace('[', '').replace(']', ''),
-		// TODO 'hardware.systemDefinitions': self.Hardware.system_definitions(),
-		// TODO 'hardware.monitors': self.Hardware.monitors(),
-		// TODO 'hardware.screens': self.Hardware.screens(),
-		// TODO 'hardware.usbDevices': self.Hardware.usb_devices(),
-		// TODO 'hardware.printers': self.Hardware.printers(),
-		// TODO 'Device': device,
+		"System":         runtime.GOOS,
+		"DiskSpaceTotal": hardware.Disk.Total,
+		"MemoryTotal":    hardware.Memory.Total,
+		// TODO "AhenkVersion": get Ahenk self version here
 	}
+
+	// Linux specific data
+	if runtime.GOOS == "linux" {
+		data["Name"] = osinfo.GetLinuxInfo()["OS"]["Name"]
+		data["Distribution"] = osinfo.GetLinuxInfo()["OS"]["Vendor"]
+		data["Architecture"] = osinfo.GetLinuxInfo()["OS"]["Arch"]
+		data["Version"] = osinfo.GetLinuxInfo()["OS"]["Version"]
+
+		data["NodeHostname"] = osinfo.GetLinuxInfo()["Node"]["Hostname"]
+
+		data["Architecture"] = osinfo.GetLinuxInfo()["Kernel"]["Machine"]
+		data["KernelVersion"] = osinfo.GetLinuxInfo()["Kernel"]["Version"]
+	}
+
+	// LINK see https://github.com/golang/go/blob/master/src/go/build/syslist.go#L14 for all possible Operating systems
+	// and https://go.dev/doc/install/source#environment for all possible combinations
+
+	// REVIEW is calling all functions one by one slow downs code?
+
+	// TODO see https://github.com/Pardus-LiderAhenk/ahenk/blob/master/src/plugins/resource-usage/agent_info.py
 	return data
 }
 

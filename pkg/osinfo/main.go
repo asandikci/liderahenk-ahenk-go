@@ -4,55 +4,59 @@ import (
 	"syscall"
 
 	"git.aliberksandikci.com.tr/Liderahenk/ahenk-go/pkg/utils"
-	"github.com/shirou/gopsutil/disk"
 	"github.com/shirou/gopsutil/mem"
+	"github.com/zcalusic/sysinfo"
 )
 
 const KB = uint64(1024)
 
-// return kernel information as string map with calling syscall (like uname command)
-func GetKernelInfo() map[string]string {
+type Hardware struct {
+	CPU    CPU    `json:"cpu"`
+	Memory Memory `json:"memory"`
+	Disk   Disk   `json:"disk"`
+	// Node   Node   `json:"node"`
+	// Kernel Kernel `json:"kernel"`
+	OS OS `json:"OS"`
+}
+
+func (h *Hardware) GetHardwareInfo() {
+	h.getCPUInfo()
+	h.getMemoryInfo()
+	h.getDiskInfo()
+	h.getOSInfo()
+}
+
+// return linux Kernel, Node and System Information
+//
+// REVIEW are there any command that also compatible with windows?
+func GetLinuxInfo() map[string]map[string]interface{} {
 	var uname syscall.Utsname
 	if err := syscall.Uname(&uname); err != nil {
 		panic(err)
 	}
-	return map[string]string{
-		"Sysname":    utils.Byte2String(uname.Sysname[:]),
-		"Nodename":   utils.Byte2String(uname.Nodename[:]),
-		"Release":    utils.Byte2String(uname.Release[:]),
-		"Version":    utils.Byte2String(uname.Version[:]),
-		"Machine":    utils.Byte2String(uname.Machine[:]),
-		"Domainname": utils.Byte2String(uname.Domainname[:]),
-	}
-}
 
-// return all physical disks, USB and CD-ROM devices
-//
-// An example output:
-// device: /dev/example, mountpoint: /, fstype: ext4, opts:rw,noatime
-func GetDisks() []disk.PartitionStat {
-	parts, err := disk.Partitions(false)
-	utils.Check(err)
-	return parts
-}
-
-// return disk usage as GiB
-//
-// TODO different functions for all disks / a specified disk?
-// FIXME Wrong Disk values for docker !!! (probably because counting also virtual mountpoints?)
-func GetDiskUsage() map[string]float64 {
-	var totalSize, freeSize, usedSize uint64
-	for _, part := range GetDisks() {
-		u, err := disk.Usage(part.Mountpoint)
-		utils.Check(err)
-		totalSize += u.Total
-		freeSize += u.Free
-		usedSize += u.Used
-	}
-	return map[string]float64{
-		"total": utils.Byte2GiB(totalSize),
-		"free":  utils.Byte2GiB(freeSize),
-		"used":  utils.Byte2GiB(usedSize),
+	var si sysinfo.SysInfo
+	si.GetSysInfo()
+	return map[string]map[string]interface{}{
+		"Kernel": {
+			"Sysname": utils.Byte2String(uname.Sysname[:]),
+			"Release": si.Kernel.Release,
+			"Version": si.Kernel.Version,
+			"Machine": si.Kernel.Architecture,
+		},
+		"Node": {
+			"Domainname": utils.Byte2String(uname.Domainname[:]),
+			"Hostname":   si.Node.Hostname,
+			"MachineID":  si.Node.MachineID,
+			"Timezone":   si.Node.Timezone,
+		},
+		"OS": { //REVIEW review info in pardus
+			"Name":    si.OS.Name,
+			"Vendor":  si.OS.Vendor,
+			"Arch":    si.OS.Architecture,
+			"Version": si.OS.Version,
+			"Release": si.OS.Release,
+		},
 	}
 }
 

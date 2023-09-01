@@ -1,4 +1,4 @@
-package main
+package resources
 
 import (
 	"runtime"
@@ -6,13 +6,8 @@ import (
 	"git.aliberksandikci.com.tr/Liderahenk/ahenk-go/pkg/osinfo"
 )
 
-type plug string
-
-// exported plugin Symbol
-var ResourcesConnect plug
-
 // return instant resource usage information
-func (p plug) ResourceUsage() map[string]interface{} {
+func ResourceUsage() (interface{}, error) {
 	var system osinfo.System
 	system.GetSystemInfo()
 
@@ -35,13 +30,13 @@ func (p plug) ResourceUsage() map[string]interface{} {
 	}
 
 	// TODO see https://github.com/Pardus-LiderAhenk/ahenk/blob/master/src/plugins/resource-usage/resource_info_fetcher.py
-	return data
+	return data, nil
 }
 
 // return general Agent system information
 //
 // these values changes rarely, see ResourceUsage() function for instant resource usage information
-func (p plug) AgentInfo() map[string]interface{} {
+func AgentInfo() (interface{}, error) {
 	var system osinfo.System
 	system.GetSystemInfo()
 
@@ -63,5 +58,5 @@ func (p plug) AgentInfo() map[string]interface{} {
 
 	// REVIEW is calling all functions one by one slow downs code?
 	// TODO see https://github.com/Pardus-LiderAhenk/ahenk/blob/master/src/plugins/resource-usage/agent_info.py
-	return data
+	return data, nil
 }

@@ -10,6 +10,7 @@ require (
 )
 
 require (
+	github.com/eh-steve/goloader v0.0.0-20230730231803-5c95d7a5f4e2 // indirect
 	github.com/go-ole/go-ole v1.2.6 // indirect
 	github.com/stretchr/testify v1.8.4 // indirect
 	github.com/tklauser/go-sysconf v0.3.12 // indirect
@@ -18,6 +19,7 @@ require (
 )
 
 require (
+	github.com/eh-steve/goloader/jit v0.0.0-20230731163325-b789213e8550
 	github.com/kardianos/osext v0.0.0-20190222173326-2bc1f35cddc0 // indirect
 	github.com/shirou/gopsutil v3.21.11+incompatible // direct
 	golang.org/x/sys v0.11.0 // direct

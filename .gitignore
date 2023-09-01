@@ -22,4 +22,4 @@
 go.work
 
 # Go temporary test files
-**/plugins/tmptest/**
+# **/plugins/tmptest/**

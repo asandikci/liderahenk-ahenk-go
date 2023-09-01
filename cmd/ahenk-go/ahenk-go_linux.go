@@ -7,6 +7,7 @@ import (
 	"os"
 	"syscall"
 
+	"git.aliberksandikci.com.tr/Liderahenk/ahenk-go/pkg/confdir"
 	"git.aliberksandikci.com.tr/Liderahenk/ahenk-go/pkg/utils"
 )
 
@@ -25,7 +26,7 @@ func Stop(pid, signal int) {
 
 	if err := syscall.Kill(pid, syscall.Signal(signal)); err == nil {
 		log.Printf("Ahenk Daemon with pid number %v Successfully stopped", pid)
-		f := utils.OpenLogFile(LogFile)
+		f := utils.OpenLogFile(confdir.Paths.Logs + "main.log")
 		defer f.Close()
 		log.SetOutput(f)
 		log.Printf("Ahenk Daemon with pid number %v Successfully stopped", pid)

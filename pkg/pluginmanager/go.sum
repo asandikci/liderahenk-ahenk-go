@@ -1,0 +1,4 @@
+github.com/eh-steve/goloader v0.0.0-20230730231803-5c95d7a5f4e2 h1:0mZ2Y8x4dhPfm9eOlbzBx31YSLaECdPvKEBrL5Hc0YE=
+github.com/eh-steve/goloader v0.0.0-20230730231803-5c95d7a5f4e2/go.mod h1:k7xs3CUwCvOU9aw851I6AEb6ZzZJ3nos5dZ6A/2ewM0=
+github.com/eh-steve/goloader/jit v0.0.0-20230731163325-b789213e8550 h1:clY7T47fFZdFcILcu7uksS7FStRaKMssCYGW0l/AoMo=
+github.com/eh-steve/goloader/jit v0.0.0-20230731163325-b789213e8550/go.mod h1:p18VKcPYO8oWGYcQt/K5EGIGqak0ZT5HwVirGpUGZBg=

@@ -1,3 +1,78 @@
 {
-  "go.buildFlags": ["-tags=linux"],
+  // Go
+  "go.buildFlags": [
+    "-tags=linux" // change this to "-tags=windows" when working for a windows feature
+  ],
+  "go.inlayHints.assignVariableTypes": true, // see variable types inline
+  "go.diagnostic.vulncheck": "Imports", // ?
+  // -------------------------------------------
+  // Anchors
+  "commentAnchors.tags.list": [
+    {
+      "tag": "FILLME",
+      "iconColor": "default",
+      "highlightColor": "#A8C993",
+      "scope": "workspace"
+    },
+    {
+      "tag": "NEXT",
+      "iconColor": "default",
+      "highlightColor": "#12449f",
+      "scope": "file"
+    },
+    {
+      "tag": "ANCHOR",
+      "iconColor": "default",
+      "highlightColor": "#A8C023",
+      "scope": "file"
+    },
+    {
+      "tag": "TODO",
+      "iconColor": "blue",
+      "highlightColor": "#3ea8ff",
+      "scope": "workspace"
+    },
+    {
+      "tag": "FIXME",
+      "iconColor": "red",
+      "highlightColor": "#F44336",
+      "scope": "workspace"
+    },
+    {
+      "tag": "STUB",
+      "iconColor": "purple",
+      "highlightColor": "#BA68C8",
+      "scope": "file"
+    },
+    {
+      "tag": "NOTE",
+      "iconColor": "orange",
+      "highlightColor": "#FFB300",
+      "scope": "file"
+    },
+    {
+      "tag": "REVIEW",
+      "iconColor": "green",
+      "highlightColor": "#64DD17",
+      "scope": "workspace"
+    },
+    {
+      "tag": "SECTION",
+      "iconColor": "blurple",
+      "highlightColor": "#896afc",
+      "scope": "workspace",
+      "behavior": "region"
+    },
+    {
+      "tag": "LINK",
+      "iconColor": "#2ecc71",
+      "highlightColor": "#2ecc71",
+      "scope": "workspace",
+      "behavior": "link"
+    },
+  ],
+  // LOCALIZATION
+  "editor.unicodeHighlight.allowedLocales": {
+    "tr": true
+  },
 }

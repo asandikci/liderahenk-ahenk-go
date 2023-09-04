@@ -1,6 +1,6 @@
 //go:build linux && !windows
 
-package pluginmanager
+package plugin
 
 import "github.com/eh-steve/goloader/jit"
 

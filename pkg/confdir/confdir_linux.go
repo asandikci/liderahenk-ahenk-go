@@ -12,5 +12,6 @@ func getPaths() Path {
 	path.Plugins = path.Data + "plugins/"
 	path.Logs = path.Data + "logs/"
 	path.Pid = "/run/ahenk-go.pid"
+	path.Version = path.Data + "version"
 	return path
 }

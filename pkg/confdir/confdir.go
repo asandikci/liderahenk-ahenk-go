@@ -7,6 +7,7 @@ type Path struct {
 	Plugins    string `json:"Plugins"`
 	Logs       string `json:"Logs"`
 	Pid        string `json:"pid"`
+	Version    string `json:"version"`
 }
 
 var Paths Path

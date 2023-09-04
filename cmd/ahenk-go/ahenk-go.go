@@ -4,9 +4,10 @@ import (
 	"log"
 	"os"
 	"os/user"
+	"time"
 
+	"git.aliberksandikci.com.tr/Liderahenk/ahenk-go/cmd/plugin"
 	"git.aliberksandikci.com.tr/Liderahenk/ahenk-go/pkg/confdir"
-	"git.aliberksandikci.com.tr/Liderahenk/ahenk-go/pkg/pluginmanager"
 	"git.aliberksandikci.com.tr/Liderahenk/ahenk-go/pkg/utils"
 
 	"github.com/sevlyar/go-daemon"
@@ -20,6 +21,7 @@ func main() {
 		switch os.Args[1] {
 		case "start":
 			utils.CreatePath(confdir.Paths.Data)
+			utils.CreatePath(confdir.Paths.Logs)
 			cntxt := &daemon.Context{
 				PidFileName: confdir.Paths.Pid,
 				PidFilePerm: 0644,
@@ -55,12 +57,16 @@ func main() {
 
 		case "tmptest":
 			log.Print("TEMPORARY TEST STARTED, log files are NOT redirecting!")
-			plugFunctions := map[string][]string{
-				"tmptest":   {"TmpTest"},
-				"resources": {"AhenkInfo", "ResourceUsage"},
-			}
-			pluginmanager.StartPlugins(plugFunctions)
+			plugFunctions := []string{"tmptest", "resources"}
+			plugin.ConnectPlugins(plugFunctions)
 
+			plugin.Tmptest.TmpTest()
+			plugin.LogPlugin("Agent Info", plugin.Resources.AgentInfo(), true)
+			plugin.LogPlugin("Resource Usage", plugin.Resources.ResourceUsage(), true)
+
+			// comment these if you want to run usual code after tmptest
+			log.Println("exiting before making usual code")
+			os.Exit(0)
 		}
 	} else {
 		panic("Please enter a valid option !")
@@ -73,9 +79,6 @@ func main() {
 	if current.Uid != "0" {
 		log.Fatal("Ahenk-go requires superuser privilege")
 	}
-
-	// plugFunctions := map[string][]string{
-	// 	"resources": {"AhenkInfo", "ResourceUsage"},
-	// }
-	// pluginmanager.StartPlugins(plugFunctions)
+	time.Sleep(5 * time.Second)
+	log.Println("bye")
 }

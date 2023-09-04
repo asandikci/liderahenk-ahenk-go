@@ -49,10 +49,18 @@ install:
 	@sudo mkdir -p "${DESTDIR}/${DATA_DIR}"
 
 linux_goloader_install:
+# NEXT
 	sudo go build -o ${DESTDIR}/usr/bin/${REPO_NAME} ./cmd/ahenk-go/
-	
+
+	@echo "linux_goloader_install option also removes all datadir!"
+	@sudo rm -rf "${DESTDIR}/${DATA_DIR}"
+
 	@sudo mkdir -p "${DESTDIR}/${DATA_DIR}"
 	sudo cp -r ./plugins "${DESTDIR}/${DATA_DIR}/"
+	sudo cp -r ./pkg "${DESTDIR}/${DATA_DIR}/"
+	sudo cp go.mod "${DESTDIR}/${DATA_DIR}/"
+	sudo cp go.sum "${DESTDIR}/${DATA_DIR}/"
+	sudo cp version "${DESTDIR}/${DATA_DIR}/"
 
 
 windows_install:

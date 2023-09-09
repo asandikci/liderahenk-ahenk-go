@@ -6,11 +6,11 @@ import "os"
 
 func getPaths() Path {
 	var path Path
-	path.Program = "TODO"
+	path.Program = "C:\\Program Files\\ahenk-go\\ahenk-go.exe"
 	path.UserConfig, _ = os.UserConfigDir()
-	path.Data = "TODO"
-	path.Plugins = path.Data + "plugins/"
-	path.Logs = path.Data + "logs/"
-	path.Pid = "TODO"
+	path.Data = "C:\\ProgramData\\ahenk-go\\"
+	path.Plugins = path.Data + "plugins\\"
+	path.Logs = path.Data + "logs\\"
+	path.Version = path.Data + "version"
 	return path
 }

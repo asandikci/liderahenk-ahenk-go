@@ -13,19 +13,23 @@ type PlugGeneral interface {
 	Info() map[string]interface{}
 }
 
+type PlugUnloaded interface {
+	error
+}
+
 // plugins/resources
 type ResourcesI interface {
 	// Get Agent Info, see plugins/resources for more information
-	AgentInfo() map[string]interface{} // LINK plugins/resources/main.go#AgentInfo
+	AgentInfo() (map[string]interface{}, error) // LINK plugins/resources/main.go#AgentInfo
 
 	// Get Resource Usage, see plugins/resources for more information
-	ResourceUsage() map[string]interface{} // LINK plugins/resources/main.go#ResourceUsage
+	ResourceUsage() (map[string]interface{}, error) // LINK plugins/resources/main.go#ResourceUsage
 }
 
 // plugins/tmptest
 type TmpTestI interface {
 	// Run temporary tests
-	TmpTest() // LINK plugins/tmptest/main.go#TmpTest
+	TmpTest() error // LINK plugins/tmptest/main.go#TmpTest
 }
 
 // FILLME[epic=new-plugin-template]
@@ -44,28 +48,11 @@ var Resources ResourcesI
 //
 // Gets plugin names as string slice
 func ConnectPlugins(params []string) {
+	connectPlugins(params)
+}
 
-	conf := getJITConf()
-	chanPlug := make(chan interface{})
-
-	for _, v := range params {
-		go LoadPlugin(v, conf, chanPlug)
-		plug, ok := <-chanPlug
-
-		switch v {
-		case "tmptest":
-			Tmptest = plug.(TmpTestI)
-			checkPlugin(Tmptest, ok)
-		case "resources":
-			Resources = plug.(ResourcesI)
-			checkPlugin(Resources, ok)
-
-			// FILLME[epic=new-plugin-template]
-			// case "pluginname":
-			//   Pluginname = plug.(NewPluginInterfaceI)
-			// 	 checkPlugin(Pluginname, ok)
-		}
-	}
+func UnloadPlugins(params []string) {
+	unloadPlugins(params)
 }
 
 // Logs plugin outputs.
@@ -78,24 +65,6 @@ func LogPlugin(title string, mp map[string]interface{}, toJson bool) {
 	} else {
 		for i, v := range mp {
 			log.Printf("%v: %v\n", i, v)
-		}
-	}
-}
-
-// Checks plugin status
-func checkPlugin(plugVal interface{}, status bool) {
-	if status {
-		if plugVal == nil {
-			log.Fatal("Plugin loaded but there is no value!")
-		} else {
-			plugInfo := plugVal.(PlugGeneral).Info()
-			log.Printf("Plugin \"%v\" loaded and ready to use with version \"%v\" ", plugInfo["name"], plugInfo["version"])
-		}
-	} else {
-		if plugVal == nil {
-			log.Fatal("Plugin closed and there is no value! ")
-		} else {
-			log.Fatal("Plugin closed or there is an error")
 		}
 	}
 }

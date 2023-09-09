@@ -15,7 +15,7 @@ type plug string
 var ResourcesConnect plug
 
 // return instant resource usage information
-func (p plug) ResourceUsage() map[string]interface{} { // ANCHOR[id=ResourceUsage]
+func (p plug) ResourceUsage() (map[string]interface{}, error) { // ANCHOR[id=ResourceUsage]
 	var system osinfo.System
 	system.GetSystemInfo()
 
@@ -35,14 +35,14 @@ func (p plug) ResourceUsage() map[string]interface{} { // ANCHOR[id=ResourceUsag
 		"Total Disk": system.Disk.Total,
 		"Usage Disk": system.Disk.Used,
 		"Device":     system.Disk.Devices,
-	}
+	}, nil
 	// see https://github.com/Pardus-LiderAhenk/ahenk/blob/master/src/plugins/resource-usage/resource_info_fetcher.py
 }
 
 // return general Agent system information
 //
 // these values changes rarely, see ResourceUsage() function for instant resource usage information
-func (p plug) AgentInfo() map[string]interface{} { // ANCHOR[id=AgentInfo]
+func (p plug) AgentInfo() (map[string]interface{}, error) { // ANCHOR[id=AgentInfo]
 	var system osinfo.System
 	system.GetSystemInfo()
 	ver, err := os.ReadFile(confdir.Paths.Version)
@@ -62,6 +62,6 @@ func (p plug) AgentInfo() map[string]interface{} { // ANCHOR[id=AgentInfo]
 
 		"DiskSpaceTotal": system.Disk.Total,
 		"MemoryTotal":    system.Memory.Total,
-	}
+	}, nil
 	// see https://github.com/Pardus-LiderAhenk/ahenk/blob/master/src/plugins/resource-usage/agent_info.py
 }

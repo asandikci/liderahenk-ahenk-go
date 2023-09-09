@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 	"os/user"
+	"runtime"
 	"time"
 
 	"git.aliberksandikci.com.tr/Liderahenk/ahenk-go/cmd/plugin"
@@ -17,9 +18,12 @@ import (
 // Main Function that starts daemon and controls arguments
 func main() {
 	confdir.GetPaths()
-	if len(os.Args) == 2 && slices.Contains([]string{"start", "stop", "restart", "nodaemon", "tmptest"}, os.Args[1]) {
+	if len(os.Args) == 2 && slices.Contains([]string{"start", "stop", "restart", "nodaemon", "tmptest", "winsafe"}, os.Args[1]) {
 		switch os.Args[1] {
 		case "start":
+			if runtime.GOOS == "windows" {
+				panic("start argument is not compatible with windows right now") // TODO
+			}
 			utils.CreatePath(confdir.Paths.Data)
 			utils.CreatePath(confdir.Paths.Logs)
 			cntxt := &daemon.Context{
@@ -57,12 +61,36 @@ func main() {
 
 		case "tmptest":
 			log.Print("TEMPORARY TEST STARTED, log files are NOT redirecting!")
-			plugFunctions := []string{"tmptest", "resources"}
-			plugin.ConnectPlugins(plugFunctions)
+			plugNames := []string{"tmptest"}
+			plugin.ConnectPlugins(plugNames)
 
 			plugin.Tmptest.TmpTest()
-			plugin.LogPlugin("Agent Info", plugin.Resources.AgentInfo(), true)
-			plugin.LogPlugin("Resource Usage", plugin.Resources.ResourceUsage(), true)
+			// if a, b := plugin.Resources.AgentInfo(); b == nil {
+			// 	plugin.LogPlugin("Agent Info", a, true)
+			// }
+			// if a, b := plugin.Resources.ResourceUsage(); b == nil {
+			// 	plugin.LogPlugin("Agent Info", a, true)
+			// }
+
+			log.Println("waiting...")
+			time.Sleep(5 * time.Second)
+
+			plugin.UnloadPlugins(plugNames)
+			log.Println("Plugins unloaded succesfully, following lines should be give error!")
+			// err := plugin.Tmptest.TmpTest()
+			// if err != nil {
+			// 	log.Println("Plugin was not loaded or already unloaded !: ", err)
+			// }
+			// if a, err := plugin.Resources.AgentInfo(); err == nil {
+			// 	plugin.LogPlugin("Agent Info", a, true)
+			// } else {
+			// 	log.Println("Plugin was not loaded or already unloaded !: ", err)
+			// }
+			// if a, err := plugin.Resources.ResourceUsage(); err == nil {
+			// 	plugin.LogPlugin("Agent Info", a, true)
+			// } else {
+			// 	log.Println("Plugin was not loaded or already unloaded !: ", err)
+			// }
 
 			// comment these if you want to run usual code after tmptest
 			log.Println("exiting before making usual code")

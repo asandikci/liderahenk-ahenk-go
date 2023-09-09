@@ -1,5 +1,7 @@
 # Ahenk Go
 
+tamamlanmamış değişiklikler için goloader-changes branch'ına ve dökümantasyona bakınız !!!
+
 **Liderahenk** is an open source project which provides solutions to manage, monitor and audit unlimited number of different systems and users on a network.
 
 Ahenk-go is a Linux agent written in Go which enables Lider to manage & monitor clients remotely.

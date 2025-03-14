@@ -1,6 +1,7 @@
 # Ahenk Go
 
-tamamlanmamış değişiklikler için goloader-changes branch'ına ve dökümantasyona bakınız !!!
+tamamlanmamış değişiklikler için goloader-changes branch'ına ve [dökümantasyona](https://github.com/asandikci/liderahenk-ahenk-docs) bakınız !!!
+Ilgili repolardaki git.aliberksandikci.com.tr/.... olan linkleri github.com/.... ile değiştirerek kaynaklara ulaşabilirsiniz
 
 **Liderahenk** is an open source project which provides solutions to manage, monitor and audit unlimited number of different systems and users on a network.
 
